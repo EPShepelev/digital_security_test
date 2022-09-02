@@ -1,14 +1,21 @@
+import { getCurrentCountryCurrency } from "./getCurrentCountryCurrency";
+
 export const getCurrencies = async () => {
   const myHeaders = new Headers();
-  myHeaders.append("apikey", "Qiqyv218o6RjeIQP7gZuiT8o6nq8GuJk");
+  myHeaders.append("apikey", "MCM7AKVdaSrUiWylU4lQfxJT6vS1oxQ7");
 
-  const res = await fetch("https://api.apilayer.com/fixer/latest", {
-    method: "GET",
-    redirect: "follow",
-    headers: myHeaders,
-  })
+  const base = await getCurrentCountryCurrency();
+
+  const res = await fetch(
+    `https://api.apilayer.com/fixer/latest&base=${base}`,
+    {
+      method: "GET",
+      redirect: "follow",
+      headers: myHeaders,
+    }
+  )
     .then((response) => response.json())
-    .then((result) => result.rates)
-    .catch((error) => console.log("error", error));
+    // .then((result) => result.rates)
+    .catch((error) => console.error("error", error));
   return res;
 };

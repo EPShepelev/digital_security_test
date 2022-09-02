@@ -8,12 +8,15 @@ import { format } from "./helpers/format";
 function App() {
   const [amount1, setAmount1] = useState(1);
   const [amount2, setAmount2] = useState(1);
-  const [currency1, setCurrency1] = useState("USD");
-  const [currency2, setCurrency2] = useState("EUR");
+  const [currency1, setCurrency1] = useState("");
+  const [currency2, setCurrency2] = useState("USD");
   const [rates, setRates] = useState([]);
 
   useEffect(() => {
-    getCurrencies().then((data) => setRates(data));
+    getCurrencies().then((data) => {
+      setRates(data.rates);
+      setCurrency1(data.base);
+    });
   }, []);
 
   useEffect(() => {
